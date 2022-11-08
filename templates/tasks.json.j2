@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[Upload]: Upload program to board",
+            "type": "shell",
+            "command": "STM32_Programmer_CLI.exe",
+            "args": [
+                "-c",
+                "port=SWD",
+                "freq=4000",
+                "-w",
+                "${workspaceRoot}/{{PName}}/build/{{PName}}.elf",
+                "-rst"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "[Build]: Build code",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}/{{PName}}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}
