@@ -4,28 +4,45 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "[PROJECT]: Generate project",
+            "type": "shell",
+            "command": "/usr/bin/python3.9",
+            "args": [
+                "scripts/gen_project.py"
+            ]
+        },
+        {
             "label": "[Upload]: Upload program to board",
             "type": "shell",
-            "command": "STM32_Programmer_CLI.exe",
+            "command": "stm32flash",
             "args": [
-                "-c",
-                "port=SWD",
-                "freq=4000",
                 "-w",
-                "${workspaceRoot}/{{PName}}/build/{{PName}}.elf",
-                "-rst"
+                "{{PName}}/build/{{PName}}.elf",
+                "-v",
+                "-w",
+                "-g",
+                "0x0",
+                "/dev/ttyS0"
             ],
             "problemMatcher": []
         },
         {
-            "label": "[Build]: Build code",
-            "command": "make",
+            "label": "[Build]: Config IDE",
+            "command": "/usr/bin/cmake",
+            "args": [
+                "..",
+                "-DCMAKE_TOOLCHAIN_FILE=../../utl/gcc-arm-none-eabi.cmake"
+            ],
             "options": {
-                "cwd": "${workspaceFolder}/{{PName}}"
+                "cwd": "${workspaceFolder}/{{PName}}/build"
             },
-            "problemMatcher": [
-                "$gcc"
-            ]
+        },
+        {
+            "label": "[Build]: Build",
+            "command": "/usr/bin/make",
+            "options": {
+                "cwd": "${workspaceFolder}/{{PName}}/build"
+            },
         }
     ]
 }

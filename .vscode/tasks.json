@@ -4,47 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "[Upload]: Upload program to board",
+            "label": "[PROJECT]: Generate project",
             "type": "shell",
-            "command": "STM32_Programmer_CLI.exe",
+            "command": "/usr/bin/python3.9",
             "args": [
-                "-c",
-                "port=SWD",
-                "freq=4000",
-                "-w",
-                "${workspaceRoot}/BMS-Interface/build/BMS-Interface.elf",
-                "-rst"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "[Build]: Build code",
-            "command": "bash",
-            "args": [
-                "/usr/bin/cmake .."
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/BMS-Interface/build"
-            },
-            "problemMatcher": [
-                "$gcc"
+                "scripts/gen_project.py"
             ]
-        },
-        {
-            "label": "[OpenOCD]: Nucleo_l4",
-            "command": "openocd.exe",
-            "args": [
-                "-f",
-                "C:/pdtools/openocd/scripts/board/myBoard.cfg"
-            ],
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "dedicated",
-                "showReuseMessage": true,
-                "clear": false
-            }
         }
     ]
 }
